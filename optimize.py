@@ -2,11 +2,10 @@ import sys
 from Optimizer import Optimizer
 
 if __name__ == '__main__':
-    selection_num = int(sys.argv[1])
+    start_path = sys.argv[1]
+    selection_num = int(sys.argv[2])
 
-    start = ['111111', '110011', '000111']
-    optimizer_obj = Optimizer(start)
-
+    optimizer_obj = Optimizer(start_path)
     print('START')
     print(optimizer_obj.get_current())
     for i in range(selection_num):

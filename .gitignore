@@ -1,5 +1,5 @@
 __pycache__
-*.ipynb
 config.ini
+start.csv
 outputs/*.csv
 outputs/*.pickle

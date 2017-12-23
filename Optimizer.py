@@ -4,9 +4,10 @@ import myfuncs
 
 
 class Optimizer(object):
-    def __init__(self, start, config_path='./config.ini'):
-        self.start = start
-        self.current = start
+    def __init__(self, start_path='./start.csv', config_path='./config.ini'):
+        with open(start_path, 'r') as f:
+            self.start = f.read().strip().split('\n')
+        self.current = self.start
         self.cp = configparser.SafeConfigParser()
         self.cp.read(config_path)
 
@@ -15,7 +16,6 @@ class Optimizer(object):
 
     def get_current_scores(self):
         scores = []
-        # tmp
         for target in self.current:
             score = eval(
                 'myfuncs.%s' % self.cp.get('score', 'evaluation'))(
