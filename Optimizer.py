@@ -1,10 +1,14 @@
+import configparser
 import numpy as np
+import myfuncs
 
 
 class Optimizer(object):
-    def __init__(self, start):
+    def __init__(self, start, config_path='./config.ini'):
         self.start = start
         self.current = start
+        self.cp = configparser.SafeConfigParser()
+        self.cp.read(config_path)
 
     def get_current(self):
         return self.current
@@ -12,8 +16,11 @@ class Optimizer(object):
     def get_current_scores(self):
         scores = []
         # tmp
-        for i in self.current:
-            scores.append(0)
+        for target in self.current:
+            score = eval(
+                'myfuncs.%s' % self.cp.get('score', 'evaluation'))(
+                target)
+            scores.append(score)
         return scores
 
     def _crossover_with_two_points(self, targets):
